@@ -8,6 +8,9 @@
 bin/
 out/
 
+# --- Local DB ---
+local.db
+
 # --- Testing & Coverage ---
 # Test binary outputs and code coverage reports
 *.test
