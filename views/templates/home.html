@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Title }}</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">⚡ {{ .Title }}</a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#docs">Docs</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-container">
+            <h1>The Lightning Fast <br><span class="gradient-text">Go Gin MVC Boilerplate</span></h1>
+            <p>{{ .Message }}</p>
+            <div class="cta-buttons">
+                <a href="#get-started" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="section-container">
+            <h2>Why choose {{ .Title }}?</h2>
+                        <!-- Updated Grid with 6 Features -->
+            <div class="grid">
+                <!-- Card 1 (Existing) -->
+                <div class="card">
+                    <div class="card-icon">🚀</div>
+                    <h3>Insane Speed</h3>
+                    <p>Built on top of Gin router for blazing fast microsecond request handling.</p>
+                </div>
+                <!-- Card 2 (Existing) -->
+                <div class="card">
+                    <div class="card-icon">📂</div>
+                    <h3>Strict MVC</h3>
+                    <p>Pre-configured folder hierarchies keep your controllers, models, and views separated perfectly.</p>
+                </div>
+                <!-- Card 3 (Existing) -->
+                <div class="card">
+                    <div class="card-icon">💾</div>
+                    <h3>GORM Included</h3>
+                    <p>Seamless database integrations and safe automatic migrations out of the box.</p>
+                </div>
+                <!-- Card 4 (NEW: Security) -->
+                <div class="card">
+                    <div class="card-icon">🛡️</div>
+                    <h3>Ironclad Security</h3>
+                    <p>Automated Bcrypt password encryption layers and custom security middleware route guards.</p>
+                </div>
+                <!-- Card 5 (NEW: Productivity) -->
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3>High Productivity</h3>
+                    <p>Includes built-in automated project renamers and terminal scaffolding setup scripts.</p>
+                </div>
+                <!-- Card 6 (NEW: User Management) -->
+                <div class="card">
+                    <div class="card-icon">👥</div>
+                    <h3>User Management</h3>
+                    <p>Ready-to-go terminal CLI creators and a full admin control dashboard panel pre-wired.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Code Preview Section -->
+    <section class="code-preview">
+        <div class="section-container">
+            <h2>Write clean code faster</h2>
+            <div class="code-window">
+                <div class="window-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="file-name">main.go</span>
+                </div>
+                <pre><code><span class="keyword">package</span> main
+
+<span class="keyword">import</span> "github.com/gin-gonic/gin"
+
+<span class="keyword">func</span> main() {
+    r := gin.Default()
+    r.GET(<span class="string">"/"</span>, <span class="keyword">func</span>(c *gin.Context) {
+        c.JSON(200, gin.H{<span class="string">"status"</span>: <span class="string">"ready"</span>})
+    })
+    r.Run()
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 {{ .Title }} Framework Team. Open source under Apache 2.0.</p>
+    </footer>
+
+    <!-- JavaScript Link -->
+    <script src="/assets/js/app.js"></script>
+</body>
+</html>

@@ -48,7 +48,7 @@ go version
 
 3. **Start your development server by using Makefile or by using standard Go run command**:
     ```bash
-    make start dev
+    make run
     ```
     OR
     ```bash

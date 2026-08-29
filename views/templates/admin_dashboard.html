@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - {{ .Title }}</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/admin.css">
+</head>
+<body>
+
+    <!-- Main Navigation Bar -->
+    <nav class="navbar admin-nav">
+        <div class="nav-container">
+            <a href="/admin" class="logo">⚡ {{ .Title }} <span class="primary-text">Admin</span></a>
+            <div class="nav-links admin-nav-actions">
+                <button id="theme-switcher" class="theme-toggle">
+                    <span id="theme-icon">🌙</span> <span id="theme-text">Dark Mode</span>
+                </button>
+                <a href="/" target="_blank">View Site 🌐</a>
+                <a href="/admin/logout" class="btn btn-secondary logout-btn">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <!-- Top Stats Summary Header Row -->
+        <div class="header-row">
+            <div>
+                <h1 class="gradient-text">System User Registry</h1>
+                <p class="muted-text">Manage platform access controls, security policies, and permissions scopes.</p>
+            </div>
+            <div>
+                <!-- Email Search Tool Component Layout -->
+                <form action="/admin" method="GET" style="display: flex; gap: 10px;">
+                    <input type="text" name="q" value="{{ .SearchQuery }}" placeholder="Search by email..." class="role-select" style="min-width: 250px;">
+                    <button type="submit" class="save-btn" style="background: var(--primary); color: var(--bg-dark); border-color: var(--primary);">Search</button>
+                    {{ if .SearchQuery }}
+                        <a href="/admin" class="theme-toggle" style="text-decoration: none; padding: 10px;">Clear</a>
+                    {{ end }}
+                </form>
+            </div>
+        </div>
+
+        <!-- Styled Data Table Inside Container Card -->
+        <div class="table-card">
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Identity Info</th>
+                        <th>Email Destination</th>
+                        <th>Permission Authorization Matrix</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ range .Users }}
+                    <tr>
+                        <td class="user-id">#{{ .ID }}</td>
+                        <td>
+                            <div class="username-container">
+                                <div class="avatar-placeholder">
+                                    {{ slice .Username 0 1 }}
+                                </div>
+                                <div class="username-text">{{ .Username }}</div>
+                            </div>
+                        </td>
+                        <td class="muted-text">{{ .Email }}</td>
+                        <td>
+                            <form action="/admin/change-role" method="POST" class="role-form">
+                                <input type="hidden" name="user_id" value="{{ .ID }}">
+                                <select name="role" class="role-select">
+                                    <option value="normal" {{ if eq .Role "normal" }}selected{{ end }}>Normal User</option>
+                                    <option value="staff" {{ if eq .Role "staff" }}selected{{ end }}>Staff Member</option>
+                                    <option value="admin" {{ if eq .Role "admin" }}selected{{ end }}>Super Admin</option>
+                                </select>
+                                <button type="submit" class="save-btn">Save Changes</button>
+                            </form>
+                        </td>
+                        <td>
+                            <span class="status-pill verified-pill">Verified</span>
+                        </td>
+                    </tr>
+                    {{ else }}
+                    <tr>
+                        <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 40px;">
+                            No matching user registries found.
+                        </td>
+                    </tr>
+                    {{ end }}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination Control Block -->
+        <div class="pagination-container" style="display: flex; justify-content: center; gap: 8px; margin-top: 24px; align-items: center;">
+            {{ if .HasPrev }}
+                <a href="/admin?page={{ .PrevPage }}&q={{ .SearchQuery }}" class="theme-toggle" style="text-decoration: none;">&larr; Prev</a>
+            {{ end }}
+
+            {{ $current := .CurrentPage }}
+            {{ $search := .SearchQuery }}
+            {{ range .PageNumbers }}
+                <a href="/admin?page={{ . }}&q={{ $search }}" class="theme-toggle {{ if eq . $current }}active-page{{ end }}" style="text-decoration: none;">
+                    {{ . }}
+                </a>
+            {{ end }}
+
+            {{ if .HasNext }}
+                <a href="/admin?page={{ .NextPage }}&q={{ .SearchQuery }}" class="theme-toggle" style="text-decoration: none;">Next &rarr;</a>
+            {{ end }}
+        </div>
+    </div>
+
+    <!-- Theme Control Logic Script Link -->
+    <script src="/assets/js/admin.js"></script>
+</body>
+</html>
